@@ -1,10 +1,10 @@
 const express = require('express');
 const helmet = require('helmet');
 
-//const actionsDB = require('./data/helpers/actionModel');
-//const projectDB = require('./data/helpers/projectModel');
+const actionsDB = require('./data/helpers/actionModel');
+const projectDB = require('./data/helpers/projectModel');
 
-//const db1 = require ('./data/dbConfig');
+const db1 = require ('./data/dbConfig');
 
 const softserver = express();
 
