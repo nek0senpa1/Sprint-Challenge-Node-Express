@@ -24,6 +24,7 @@ softserver.get('/', (req,res) => {
 
 softserver.get('/project', async (reck, rez) => {
     try{
+        console.log(reck);
         const thing = await projectDB.get(reck.id);
         // you guys are horrible for this one... how were we supposed to
         // know what . note to use here... this was a guess...
@@ -141,7 +142,21 @@ softserver.put('/action/:id', async (rec, rez) => {
 
 // Random skilful guesses are random...
 
+softserver.get('/project/:id/action', async (rec, rez) => {
+    try {
+        var postCereal = await projectDB.getProjectActions(rec.params.id);
+        if (postCereal.length > 0) {
+            rez.status(200).json({ postCereal, message: "Hey, good job :)"})
+        }
+        else {
+            rez.status(404).json({message: "Zip Zilch and Nada, try something else"});
+        }
+    }
+    catch {
+        rez.status(500).json({ message:'You Fool of a Took !!!'})
+    };
 
+})
 
 
 
