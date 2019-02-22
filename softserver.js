@@ -20,6 +20,7 @@ softserver.get('/', (req,res) => {
         `);
 });
 
+// Project CRUDs
 
 softserver.get('/project', async (reck, rez) => {
     try{
@@ -77,6 +78,70 @@ softserver.put('/project/:id', async (rec, rez) => {
         rez.status(500).json({ message:'You have goofed really hard if you see this. Try a real id number...'})
     }
 })
+
+// Actions EndP's
+
+softserver.get('/action', async (reck, rez) => {
+    try{
+        console.log(reck);
+        const thing = await actionDB.get(reck.body.id);
+        // you guys are REAL horrible for this one... how were we supposed to
+        // know what . note to use here... this was ANOTHER 'educated' guess...
+        rez.status(200).json(thing);
+    }
+    catch (errerz) {
+        console.log(errerz);
+        rez.status(500).json({
+            message: "You ain\n't got nothin... ",
+        })
+    }
+});
+
+softserver.post('/action', async (rec, rez) => {
+    try{
+        const widget = await actionDB.insert(rec.body);
+        rez.status(201).json(widget)
+    }
+    catch{
+        rez.status(500).json({ message:'Nope! Shatever you sent in body is wrong!'})
+    }
+});
+
+softserver.delete('/action/:id', async (rec, rez) => {
+    try {
+        var widget = await actionDB.remove(rec.params.id);
+        if (widget) {
+            console.log(widget);
+            rez.status(200).json({ message: 'Yup! You Killed It'});
+        } 
+        else {
+            console.log(widget);
+            rez.status(404).json({ message: 'Nothing here to kill...'});
+        }
+        }
+        catch{
+            rez.status(500).json({ message:'You have goofed really hard if you see this. Try a real id number...'})
+        } 
+})
+
+softserver.put('/action/:id', async (rec, rez) => {
+    try {
+        let putPutter = await actionDB.update(rec.params.id, rec.body);
+        if (putPutter) {
+            rez.status(200).json({message: "Good Job, You updated a Thingy"});
+        }
+        else {
+            rez.status(404).json({message: "NOPE! Not a real ID to update"});
+        }
+    }
+    catch{
+        rez.status(500).json({ message:'You have goofed really hard if you see this. Try a real id number...'})
+    }
+})
+
+// Random skilful guesses are random...
+
+
 
 
 
