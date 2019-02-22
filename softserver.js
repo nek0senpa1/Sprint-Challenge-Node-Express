@@ -25,9 +25,14 @@ softserver.get('/', (req,res) => {
 softserver.get('/project', async (reck, rez) => {
     try{
         console.log(reck);
-        const thing = await projectDB.get(reck.id);
+        const thing = await projectDB.get();
+        // reck.id
         // you guys are horrible for this one... how were we supposed to
         // know what . note to use here... this was a guess...
+
+        // Have now realized that I don't need to pass a var to  the
+        // get method... but why not?  I don't know, I guess I don't
+        // know what that knex function is doing really...
         rez.status(200).json(thing);
     }
     catch (errerz) {
