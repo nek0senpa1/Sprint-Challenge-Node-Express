@@ -38,6 +38,32 @@ softserver.get('/project', async (reck, rez) => {
     }
 });
 
+// NOW I"M EXPERIMENTING...
+
+softserver.get('/test', (req, res) => {
+    actionDB
+    .get()
+    .then( stuff => {
+        res.status(200).json(stuff);
+    })
+    .catch( random => {
+        console.log( random ,'Dang it, Bobby')
+    })
+})
+
+softserver.get('/test2', (req, res) => {
+    projectDB
+    .get()
+    .then( stuff => {
+        res.status(200).json(stuff);
+    })
+    .catch( random => {
+        console.log( random ,'Dang it, Bobby')
+    })
+})
+
+// DONE EXPERIMENTING...
+
 softserver.post('/project', async (rec, rez) => {
     try{
         const widget = await projectDB.insert(rec.body);
